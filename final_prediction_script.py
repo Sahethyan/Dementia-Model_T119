@@ -1,6 +1,6 @@
 """
 Final Dementia Prediction Script
-Author: Senior ML Engineer
+Author:  Sahethyan,Yousuf,Ackaash
 Purpose: Make predictions using the trained model and optimal decision threshold
 """
 
