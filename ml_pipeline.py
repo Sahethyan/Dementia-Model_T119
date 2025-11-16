@@ -1,6 +1,6 @@
 """
 Complete Machine Learning Pipeline for Dementia Prediction
-Author: Senior Data Scientist
+Author: Sahethyan,Yousuf,Ackaash
 Purpose: Build a full ML pipeline to handle missing data and train a binary classification model
 """
 
