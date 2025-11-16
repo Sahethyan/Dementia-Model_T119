@@ -1,6 +1,6 @@
 """
 Comprehensive Data Loading and Cleaning Script for Dementia Prediction Dataset
-Author: Senior ML Engineer
+Author: Sahethyan,Yousuf,Ackaash
 Purpose: Load, filter, and clean the Dementia_Prediction_Dataset.csv file
 """
 
