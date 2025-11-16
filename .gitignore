@@ -22,11 +22,15 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Project specific
+# Project specific - Large data files
 *.pkl
 *.pickle
 # Keep .joblib files as they might be needed
 # *.joblib
+
+# Large dataset files (exceed GitHub's 100MB limit)
+Dementia_Prediction_Dataset.csv
+cleaned_Dementia_Prediction_Dataset.csv
 
 # Jupyter Notebook
 .ipynb_checkpoints
