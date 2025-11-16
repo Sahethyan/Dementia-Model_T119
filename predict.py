@@ -159,14 +159,14 @@ def run_predictions():
     
     print("✓ Output DataFrame created with predictions")
     
-    # Display and Save
+    
     print("\n" + "=" * 80)
     print("--- Model Predictions ---")
     print("=" * 80)
     print(df_output.head())
     print("\n" + "=" * 80)
     
-    # Save to CSV
+
     try:
         df_output.to_csv(OUTPUT_FILE, index=False)
         print(f"\n✓ Predictions saved to {OUTPUT_FILE}")
@@ -184,7 +184,7 @@ if __name__ == "__main__":
     Main execution block.
     First creates the test data file, then runs predictions.
     """
-    # Step 1: Create test data file
+    
     print("=" * 80)
     print("CREATING TEST DATA FILE")
     print("=" * 80)
