@@ -1,6 +1,6 @@
 """
 Dementia Prediction Script
-Author: Senior ML Engineer
+Author:  Sahethyan,Yousuf,Ackaash
 Purpose: Create test data and make predictions using a pre-trained model
 """
 
