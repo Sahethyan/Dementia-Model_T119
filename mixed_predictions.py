@@ -1,6 +1,6 @@
 """
 Dementia Prediction Script for Mixed Dataset
-Author: Senior ML Engineer
+Author: Sahethyan,Yousuf,Ackaash
 Purpose: Load a pre-trained scikit-learn pipeline and make predictions on new, unseen data
 """
 
