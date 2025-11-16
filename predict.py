@@ -7,6 +7,7 @@ Purpose: Create test data and make predictions using a pre-trained model
 import pandas as pd
 import numpy as np
 import joblib
+import json
 
 
 def create_test_file():
@@ -115,13 +116,31 @@ def run_predictions():
     # Make Predictions
     print("\n--- Making Predictions ---")
     try:
-        # Get class predictions (0 or 1)
-        predictions_class = pipeline.predict(df_aligned)
+        # --- UPDATED PREDICTION LOGIC ---
         
-        # Get probability predictions (probability of class 1)
+        # Load the optimal threshold we saved during training
+        try:
+            with open('model_config.json', 'r') as f:
+                config = json.load(f)
+                OPTIMAL_THRESHOLD = config['threshold']
+            print(f"✓ Loaded optimal threshold: {OPTIMAL_THRESHOLD:.4f}")
+        except FileNotFoundError:
+            print("⚠ WARNING: 'model_config.json' not found. Using default threshold 0.5")
+            print("  Please run the training script (ml_pipeline.py) first to generate the optimal threshold.")
+            # Fallback to 0.5, though this will likely fail
+            OPTIMAL_THRESHOLD = 0.5
+        
+        # 1. Get the probabilities (the "risk score")
         predictions_proba = pipeline.predict_proba(df_aligned)[:, 1]
         
+        # 2. Make the class prediction (0 or 1) using our new, smarter threshold
+        predictions_class = (predictions_proba >= OPTIMAL_THRESHOLD).astype(int)
+        
+        # --- END OF UPDATED LOGIC ---
+        
         print(f"✓ Successfully generated predictions for {len(predictions_class)} samples")
+        print(f"  Using threshold: {OPTIMAL_THRESHOLD:.4f}")
+        print(f"  Predictions - Class 0: {(predictions_class == 0).sum()}, Class 1: {(predictions_class == 1).sum()}")
     except Exception as e:
         print(f"✗ ERROR: Prediction failed: {e}")
         import traceback

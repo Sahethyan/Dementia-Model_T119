@@ -13,7 +13,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from lightgbm import LGBMClassifier
-from sklearn.metrics import f1_score, roc_auc_score
+from sklearn.metrics import f1_score, roc_auc_score, precision_recall_curve
+import json
 
 
 def identify_feature_types(df, target_col, numerical_threshold=20):
@@ -331,6 +332,38 @@ def main():
         print("\n--- Final Tuned Model Saved to dementia_model.joblib ---")
     except Exception as e:
         print(f"✗ ERROR: Failed to save model: {e}")
+    
+    # ============================================================================
+    # STEP 12: Find Optimal Decision Threshold
+    # ============================================================================
+    print("\n--- Finding Optimal Decision Threshold ---")
+    
+    # Get probability predictions for the *training data*
+    y_train_proba = tuned_model.predict_proba(X_train)[:, 1]
+    
+    # Calculate precision, recall, and thresholds
+    precision, recall, thresholds = precision_recall_curve(y_train, y_train_proba)
+    
+    # Find the F1 score for all thresholds
+    # We add a small epsilon (1e-10) to avoid division by zero
+    f1_scores = (2 * precision * recall) / (precision + recall + 1e-10)
+    
+    # Find the threshold that gives the highest F1 score
+    best_f1_idx = np.argmax(f1_scores)
+    best_threshold = thresholds[best_f1_idx]
+    
+    print(f"Best F1 Score on Train data: {f1_scores[best_f1_idx]:.4f}")
+    print(f"Optimal Decision Threshold: {best_threshold:.4f}")
+    
+    # Save this threshold to a file for the prediction script to use
+    THRESHOLD_FILE = 'model_config.json'
+    config = {'threshold': float(best_threshold)}  # Convert to float for JSON serialization
+    try:
+        with open(THRESHOLD_FILE, 'w') as f:
+            json.dump(config, f)
+        print(f"✓ Optimal threshold saved to {THRESHOLD_FILE}")
+    except Exception as e:
+        print(f"✗ ERROR: Failed to save threshold: {e}")
     
     print("\n" + "=" * 80)
     print("PIPELINE EXECUTION COMPLETED SUCCESSFULLY")

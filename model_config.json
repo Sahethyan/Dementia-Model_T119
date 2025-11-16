@@ -1,0 +1,8 @@
+{
+    "threshold": 0.7192797244428942,
+    "scale_pos_weight": 2.389390519187359,
+    "best_f1_score": 0.8633821688702118,
+    "test_f1_score": 0.8392751790981879,
+    "test_roc_auc": 0.9542827087364821,
+    "test_f1_with_optimal_threshold": 0.8383726592589313
+}
