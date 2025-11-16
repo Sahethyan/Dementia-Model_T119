@@ -1,6 +1,6 @@
 """
 Comprehensive Train-and-Predict Workflow for Dementia Prediction Model
-Author: Senior ML Engineer
+Author:  Sahethyan,Yousuf,Ackaash
 Purpose: Re-train model with class imbalance fix and immediately verify with predictions
 """
 
